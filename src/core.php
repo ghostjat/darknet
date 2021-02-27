@@ -54,11 +54,13 @@ class core {
     public function detect($img, $remote = false, $thresh = .5, $hier_thresh = .5, $nms = .45) {
         $time = microtime(true);
         if ($remote) {
-            $imgfile = $this->img4base64($img);
-            $this->loadImage($imgfile);
+            $img = $this->img4base64($img);
+            $this->loadImage($img);
         } else {
             $this->loadImage($img);
         }
+        
+        $this->imgInfo($img);
         $this->predictImg();
         $this->getNetworkBoxes($this->net, $this->image->w, $this->image->h, $thresh, $hier_thresh, null, 0, $this->numBox);
         $this->doNmsSort($this->dets, $this->numBox, $this->meta, $nms);
@@ -71,16 +73,16 @@ class core {
             }
         }
         if ($remote) {
-            $msg = $this->drawBbox($imgfile, $res);
+            $msg = $this->drawBbox($res);
             echo PHP_EOL;
             echo "Execution time:" . $this->consumedTime($time) . PHP_EOL;
-            unlink($imgfile);
+            unlink($img);
             $this->freeImage($this->image);
             $this->freeDetections($this->dets, $this->numBox);
             unset($res);
             return $msg;
         } else {
-            $this->drawBbox($img, $res, self::OUTFILE_DIR . $this->imgInfo->name);
+            $this->drawBbox($res, self::OUTFILE_DIR . $this->imgInfo->name);
             unset($res);
         }
         echo PHP_EOL;
@@ -89,7 +91,7 @@ class core {
         $this->freeDetections($this->dets, $this->numBox);
         unset($time);
     }
-
+    
     public function remotePR($client, $frame, $server = '') {
         if ($server !== '') {
             $msg = $this->detect($frame->data, true);
@@ -211,8 +213,8 @@ class core {
         return (object) ['x1' => $x - $w, 'y1' => $y - $h, 'x2' => $x + $w, 'y2' => $y + $h];
     }
 
-    protected function drawBbox($filename, $inp, $outFile = null) {
-        $this->rawImage = $this->createImg($filename);
+    protected function drawBbox($inp, $outFile = null) {
+        $this->rawImage = $this->createImg();
         imagesetthickness($this->rawImage, 2);
         if ($inp !== null) {
             foreach ($inp as $i) {
@@ -283,6 +285,7 @@ class core {
 
                     case 'diningtable':
                     case 'bed':
+                    case 'bench':
                     case 'sofa':
                     case 'chair':
                         imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('cyan'));
@@ -362,6 +365,9 @@ class core {
             case 'chocolate':
                 $color = imagecolorallocate($this->rawImage, 210, 105, 30);
                 break;
+            case 'white':
+                $color = imagecolorallocate($this->rawImage, 255, 255, 255);
+                break;
             default :
                 $color = imagecolorallocate($this->rawImage, 0, 0, 0);
                 break;
@@ -374,20 +380,19 @@ class core {
      * @param  [type] $filename [description]
      * @return [type]           [description]
      */
-    protected function createImg($filename) {
-        $this->imgInfo($filename);
+    protected function createImg() {
         switch ($this->imgInfo->type) {
             case 'png':
-                $image = imagecreatefrompng($filename);
+                $image = imagecreatefrompng($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
                 break;
             case 'jpg':
-                $image = imagecreatefromjpeg($filename);
+                $image = imagecreatefromjpeg($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
                 break;
             case 'bmp':
-                $image = imagecreatefrombmp($filename);
+                $image = imagecreatefrombmp($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
                 break;
             case 'webp':
-                $image = imagecreatefromwebp($filename);
+                $image = imagecreatefromwebp($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
                 break;
 
             default :
