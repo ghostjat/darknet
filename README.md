@@ -25,10 +25,10 @@ The interface is not final and may change in the future.
 Sample:
 
 <p align="center">
- <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/dog.png" alt ="dog"/>
-  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/egale.png" alt ="egale"/>
- <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/giraffe.png" alt ="giraffe"/>
-<img src="https://raw.github.com/ghostjat/php-darknet/master/temp/person.jpg" alt="person"/>
+ <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/dog.png" alt ="dog"/>
+  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/egale.png" alt ="egale"/>
+ <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/giraffe.png" alt ="giraffe"/>
+<img src="https://raw.github.com/ghostjat/php-darknet/master/temp/out/person.jpg" alt="person"/>
 </p>
 
 Sample code:
