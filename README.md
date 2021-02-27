@@ -4,6 +4,10 @@ php-ffi experiment
 =========
 php7.4 interface to the lib-darknet for object detection.
 
+Install
+---------
+composer require ghostjat/darknet
+
 Description
 -----------
 [lib-darknet](https://github.com/pjreddie/darknet) 
