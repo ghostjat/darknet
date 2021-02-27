@@ -26,7 +26,7 @@ Sample:
 
 <p align="center">
  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/dog.jpg" alt ="dog"/>
-  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/egale.jpg" alt ="egale"/>
+  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/eagle.jpg" alt ="egale"/>
  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/giraffe.jpg" alt ="giraffe"/>
 <img src="https://raw.github.com/ghostjat/php-darknet/master/temp/out/person.jpg" alt="person"/>
 </p>
