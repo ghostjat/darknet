@@ -1,5 +1,5 @@
 {
-    "name": "ghost/darknet",
+    "name": "ghostjat/darknet",
     "description": "PHP bindings to the Darknet.",
     "keywords": ["darknet","php", "ffi", "yolo", "yolov3", "yolov4", "yolo-tiny", "object-detection", "AI"],
     "homepage": "https://github.com/ghostjat/php-darknet",
