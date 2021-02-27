@@ -25,9 +25,9 @@ The interface is not final and may change in the future.
 Sample:
 
 <p align="center">
- <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/dog.png" alt ="dog"/>
-  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/egale.png" alt ="egale"/>
- <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/giraffe.png" alt ="giraffe"/>
+ <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/dog.jpg" alt ="dog"/>
+  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/egale.jpg" alt ="egale"/>
+ <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/giraffe.jpg" alt ="giraffe"/>
 <img src="https://raw.github.com/ghostjat/php-darknet/master/temp/out/person.jpg" alt="person"/>
 </p>
 
