@@ -1,0 +1,30 @@
+{
+    "name": "ghost/darknet",
+    "description": "PHP bindings to the Darknet.",
+    "keywords": ["darknet","php", "ffi", "yolo", "yolov3", "yolov4", "yolo-tiny", "object-detection", "AI"],
+    "homepage": "https://github.com/ghostjat/php-darknet",
+    "license": "Apache-2.0",
+    "version": "0.1-alpha",
+    "authors": [
+        {
+            "name": "Shubham Chaudhary",
+            "email": "ghost.jat@gmail.com",
+            "role": "dev"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ghostjat/php-darknet/issues?state=open",
+        "source": "https://github.com/ghostjat/php-darknet"
+    },
+    "autoload": {
+        "psr-4": {
+            "darknet\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.4.0",
+        "ext-ffi": "*",
+        "cboden/ratchet": "^0.4.3"
+    },
+    "config":{"optimize-autoloader":true}
+}
