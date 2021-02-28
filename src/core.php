@@ -39,7 +39,6 @@ class core {
         $this->getMeta($metaData);
         $this->classes();
         $this->loadNetwork($netType);
-        $this->gdFontPath();
     }
 
     public function classify($img) {
