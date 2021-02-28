@@ -59,7 +59,7 @@ class core {
         } else {
             $this->loadImage($img);
         }
-        
+
         $this->imgInfo($img);
         $this->predictImg();
         $this->getNetworkBoxes($this->net, $this->image->w, $this->image->h, $thresh, $hier_thresh, null, 0, $this->numBox);
@@ -91,7 +91,7 @@ class core {
         $this->freeDetections($this->dets, $this->numBox);
         unset($time);
     }
-    
+
     public function remotePR($client, $frame, $server = '') {
         if ($server !== '') {
             $msg = $this->detect($frame->data, true);
@@ -230,27 +230,24 @@ class core {
                     case 'horse':
                     case 'sheep':
                     case 'zebra':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('yellow'));
-                        $this->truthLabel($box, $label, 'yellow','black');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('yellow'));
+                        $this->truthLabel($box, $label, 'yellow', 'black');
                         break;
+
                     case 'bird':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('teal'));
-                        $this->truthLabel($box, $label,'teal', 'white');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('teal'));
+                        $this->truthLabel($box, $label, 'teal', 'white');
                         break;
 
                     case 'cake':
                     case 'donut':
                     case 'pizza':
+                    case 'hot dog':
                     case 'carrot':
                     case 'broccoli':
                     case 'orange':
+                    case 'sandwich':
                     case 'apple':
                     case 'banana':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('magenta'));
-                        $this->truthLabel($box, $label,'magenta','white');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('magenta'));
+                        $this->truthLabel($box, $label, 'magenta', 'white');
                         break;
 
                     case 'toaster':
@@ -263,29 +260,27 @@ class core {
                     case 'laptop':
                     case 'tvmonitor':
                     case 'refrigerator':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('blue'));
-                        $this->truthLabel($box, $label, 'blue','white');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('blue'));
+                        $this->truthLabel($box, $label, 'blue', 'white');
                         break;
 
                     case 'toothbrush':
                     case 'hair drier':
-                    case 'teddy bear':
                     case 'vase':
                     case 'clock':
                     case 'bottle':
                     case 'spoon':
                     case 'cup':
-                    case 'kite':
                     case 'suitcase':
                     case 'tie':
                     case 'handbag':
                     case 'umbrella':
                     case 'book':
                     case 'backpack':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('purple'));
-                        $this->truthLabel($box, $label,'purple','white');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('purple'));
+                    case 'wine glass':
+                    case 'fork':
+                    case 'bowl':
+                    case 'knife':
+                        $this->truthLabel($box, $label, 'purple', 'white');
                         break;
 
                     case 'diningtable':
@@ -293,32 +288,46 @@ class core {
                     case 'bench':
                     case 'sofa':
                     case 'chair':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('cyan'));
-                        $this->truthLabel($box, $label, 'cyan','black');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('cyan'));
+                    case 'sink':
+                    case 'scissors':
+                        $this->truthLabel($box, $label, 'cyan', 'black');
                         break;
 
                     case 'car':
+                    case 'bus':
                     case 'boat':
                     case 'truck':
                     case 'bicycle':
                     case 'motobike':
                     case 'aeroplane':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('red'));
-                        $this->truthLabel($box, $label, 'red','white');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('red'));
+                        $this->truthLabel($box, $label, 'red', 'white');
                         break;
-
                     case 'person':
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('green'));
-                        $this->truthLabel($box,$label,'green','black');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('green'));
+                        $this->truthLabel($box, $label, 'green', 'black');
                         break;
 
+                    case 'skis':
+                    case 'snowboard':
+                    case 'sports ball':
+                    case 'kite':
+                    case 'baseball bat':
+                    case 'baseball glove':
+                    case 'skateboard':
+                    case 'surfboard':
+                    case 'tennis racket':
+                    case 'teddy bear':
+                        $this->truthLabel($box, $label, 'purple', 'white');
+                        break;
+                    
+                    case 'traffic light':
+                    case 'fire hydrant':
+                    case 'stop sign':
+                    case 'parking meter':
+                        $this->truthLabel($box, $label, 'blueViolet', 'white');
+                        break;
+                    
                     default :
-                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('black'));
-                        $this->truthLabel($box, $label,'black','white');
-                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('black'));
+                        $this->truthLabel($box, $label, 'black', 'white');
                         break;
                 }
             }
@@ -428,16 +437,16 @@ class core {
     protected function createImg() {
         switch ($this->imgInfo->type) {
             case 'png':
-                $image = imagecreatefrompng($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
+                $image = imagecreatefrompng($this->imgInfo->dir . DIRECTORY_SEPARATOR . $this->imgInfo->name);
                 break;
             case 'jpg':
-                $image = imagecreatefromjpeg($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
+                $image = imagecreatefromjpeg($this->imgInfo->dir . DIRECTORY_SEPARATOR . $this->imgInfo->name);
                 break;
             case 'bmp':
-                $image = imagecreatefrombmp($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
+                $image = imagecreatefrombmp($this->imgInfo->dir . DIRECTORY_SEPARATOR . $this->imgInfo->name);
                 break;
             case 'webp':
-                $image = imagecreatefromwebp($this->imgInfo->dir.DIRECTORY_SEPARATOR.$this->imgInfo->name);
+                $image = imagecreatefromwebp($this->imgInfo->dir . DIRECTORY_SEPARATOR . $this->imgInfo->name);
                 break;
 
             default :
@@ -510,14 +519,15 @@ class core {
         imagedestroy($image_p);
         imagedestroy($image);
     }
-    
-    protected function truthLabel($box,$label,$bbcolor,$fncolor) {
+
+    protected function truthLabel($box, $label, $bbcolor, $fncolor) {
         $strlen = strlen($label);
         $fw = $strlen * imagefontwidth(4);
         $fh = imagefontheight(4);
-        imagefilledrectangle($this->rawImage, $box->x1 - 1 , $box->y1 - $fh, $box->x1+$fw, $box->y1 , $this->color($bbcolor));
+        imagefilledrectangle($this->rawImage, $box->x1 - 1, $box->y1 - $fh, $box->x1 + $fw, $box->y1, $this->color($bbcolor));
         imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color($bbcolor));
-        imagestring($this->rawImage, 4, $box->x1, $box->y1 -16, $label, $this->color($fncolor));;
+        imagestring($this->rawImage, 4, $box->x1, $box->y1 - 16, $label, $this->color($fncolor));
+        ;
     }
 
 }
