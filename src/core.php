@@ -39,6 +39,7 @@ class core {
         $this->getMeta($metaData);
         $this->classes();
         $this->loadNetwork($netType);
+        $this->gdFontPath();
     }
 
     public function classify($img) {
@@ -51,7 +52,7 @@ class core {
         return $res;
     }
 
-    public function detect($img, $remote = false, $thresh = .5, $hier_thresh = .5, $nms = .45) {
+    public function detect($img, $remote = false, $thresh = .25, $hier_thresh = .5, $nms = .45) {
         $time = microtime(true);
         if ($remote) {
             $img = $this->img4base64($img);
@@ -230,12 +231,14 @@ class core {
                     case 'horse':
                     case 'sheep':
                     case 'zebra':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('yellow'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('yellow'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('yellow'));
+                        $this->truthLabel($box, $label, 'yellow','black');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('yellow'));
                         break;
                     case 'bird':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('teal'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('teal'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('teal'));
+                        $this->truthLabel($box, $label,'teal', 'white');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('teal'));
                         break;
 
                     case 'cake':
@@ -246,8 +249,9 @@ class core {
                     case 'orange':
                     case 'apple':
                     case 'banana':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('magenta'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('magenta'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('magenta'));
+                        $this->truthLabel($box, $label,'magenta','white');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('magenta'));
                         break;
 
                     case 'toaster':
@@ -260,8 +264,9 @@ class core {
                     case 'laptop':
                     case 'tvmonitor':
                     case 'refrigerator':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('blue'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('blue'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('blue'));
+                        $this->truthLabel($box, $label, 'blue','white');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('blue'));
                         break;
 
                     case 'toothbrush':
@@ -279,8 +284,9 @@ class core {
                     case 'umbrella':
                     case 'book':
                     case 'backpack':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('purple'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('purple'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('purple'));
+                        $this->truthLabel($box, $label,'purple','white');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('purple'));
                         break;
 
                     case 'diningtable':
@@ -288,8 +294,9 @@ class core {
                     case 'bench':
                     case 'sofa':
                     case 'chair':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('cyan'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('cyan'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('cyan'));
+                        $this->truthLabel($box, $label, 'cyan','black');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('cyan'));
                         break;
 
                     case 'car':
@@ -298,18 +305,21 @@ class core {
                     case 'bicycle':
                     case 'motobike':
                     case 'aeroplane':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('red'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('red'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('red'));
+                        $this->truthLabel($box, $label, 'red','white');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('red'));
                         break;
 
                     case 'person':
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('green'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('green'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('green'));
+                        $this->truthLabel($box,$label,'green','black');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('green'));
                         break;
 
                     default :
-                        imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('black'));
-                        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('black'));
+                        #imagestring($this->rawImage, 5, $box->x1, $box->y1 - 20, $label, $this->color('black'));
+                        $this->truthLabel($box, $label,'black','white');
+                        #imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color('black'));
                         break;
                 }
             }
@@ -351,7 +361,7 @@ class core {
                 $color = imagecolorallocate($this->rawImage, 0, 255, 255);
                 break;
             case 'purple':
-                $color = imagecolorallocate($this->rawImage, 128, 0, 128);
+                $color = imagecolorallocate($this->rawImage, 160, 32, 240);
                 break;
             case 'teal':
                 $color = imagecolorallocate($this->rawImage, 0, 128, 128);
@@ -360,13 +370,49 @@ class core {
                 $color = imagecolorallocate($this->rawImage, 138, 43, 226);
                 break;
             case 'pink':
-                $color = imagecolorallocate($this->rawImage, 255, 20, 147);
+                $color = imagecolorallocate($this->rawImage, 255, 192, 203);
                 break;
             case 'chocolate':
                 $color = imagecolorallocate($this->rawImage, 210, 105, 30);
                 break;
             case 'white':
                 $color = imagecolorallocate($this->rawImage, 255, 255, 255);
+                break;
+            case 'aquamarine1':
+                $color = imagecolorallocate($this->rawImage, 127, 255, 212);
+                break;
+            case 'azurel':
+                $color = imagecolorallocate($this->rawImage, 240, 255, 255);
+                break;
+            case 'maroon':
+                $color = imagecolorallocate($this->rawImage, 176, 48, 96);
+                break;
+            case 'orchid':
+                $color = imagecolorallocate($this->rawImage, 218, 112, 214);
+                break;
+            case 'plum':
+                $color = imagecolorallocate($this->rawImage, 221, 160, 221);
+                break;
+            case 'voilet':
+                $color = imagecolorallocate($this->rawImage, 238, 130, 238);
+                break;
+            case 'salmon':
+                $color = imagecolorallocate($this->rawImage, 250, 128, 114);
+                break;
+            case 'brown':
+                $color = imagecolorallocate($this->rawImage, 165, 42, 42);
+                break;
+            case 'orange':
+                $color = imagecolorallocate($this->rawImage, 255, 165, 0);
+                break;
+            case 'darkgreen':
+                $color = imagecolorallocate($this->rawImage, 0, 100, 0);
+                break;
+            case 'navy':
+                $color = imagecolorallocate($this->rawImage, 0, 0, 128);
+                break;
+            case 'slateblue':
+                $color = imagecolorallocate($this->rawImage, 106, 90, 205);
                 break;
             default :
                 $color = imagecolorallocate($this->rawImage, 0, 0, 0);
@@ -464,6 +510,15 @@ class core {
         imagejpeg($image, __DIR__ . '/../temp/in/' . $this->tempImgName() . '.jpg', 100);
         imagedestroy($image_p);
         imagedestroy($image);
+    }
+    
+    protected function truthLabel($box,$label,$bbcolor,$fncolor) {
+        $strlen = strlen($label);
+        $fw = $strlen * imagefontwidth(4);
+        $fh = imagefontheight(4);
+        imagefilledrectangle($this->rawImage, $box->x1 - 1 , $box->y1 - $fh, $box->x1+$fw, $box->y1 , $this->color($bbcolor));
+        imagerectangle($this->rawImage, $box->x1, $box->y1, $box->x2, $box->y2, $this->color($bbcolor));
+        imagestring($this->rawImage, 4, $box->x1, $box->y1 -16, $label, $this->color($fncolor));;
     }
 
 }
