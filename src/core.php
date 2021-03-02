@@ -14,6 +14,16 @@ use darknet\Exception\coreException;
 class core {
 
     protected const LIBDIR = '/home/ghost/bin/c-lib/darknet/';
+    protected const CFG_FASTEST_YOLO = __DIR__.'/cfg/yolo-fastest.cfg';
+    protected const WEIGHT_FASTEST_YOLO = __DIR__.'/weight/yolo-fastest.weights';
+    protected const CFG_FASTEST_YOLO_XL = __DIR__.'/cfg/yolo-fastest-xl.cfg';
+    protected const WEIGHT_FASTEST_YOLO_XL = __DIR__.'/weight/yolo-fastest-xl.weights';
+    protected const CFG_MOBILENET_V2_LITE = self::LIBDIR.'cfg/MobileNetV2-YOLOv3-Lite-coco.cfg';
+    protected const WEIGHT_MOBILENET_V2_LITE = self::LIBDIR.'backup/MobileNetV2-YOLOv3-Lite-coco.weights';
+    protected const CFG_VOC_TINY_2 = self::LIBDIR.'cfg/yolov2-tiny-voc.cfg';
+    protected const WEIGHT_VOC_TINY_2 = self::LIBDIR.'backup/yolov2-tiny-voc.weights';
+    protected const CFG_TINY_2 = self::LIBDIR.'cfg/yolov2-tiny.cfg';
+    protected const WEIGHT_TINY_2 = self::LIBDIR . 'backup/yolov2-tiny.weights';
     protected const CFG_TINY_3 = self::LIBDIR . 'cfg/yolov3-tiny.cfg';
     protected const WEIGHT_TINY_3 = self::LIBDIR . 'backup/yolov3-tiny.weights';
     protected const CFG_TINY_4 = self::LIBDIR . 'cfg/yolov4-tiny.cfg';
@@ -29,6 +39,11 @@ class core {
     public const YOLO4TINY = 4;
     public const YOLO3TINY = 3;
     public const YOLO3MAIN = 2;
+    public const YOLO2TINY = 1;
+    public const YOLOFASTEST = 7;
+    public const YOLOFASTEST_XL = 8;
+    public const YOLO_VOC_TINY = 5;
+    public const MOBILE_NET_V2_LITE_YOLO = 6;
 
     protected $image, $itme, $net, $outPut, $pathInfo, $rawImage, $temp_name, $dets, $imgInfo;
     public $darknetFFI, $meta, $classes, $numBox;
@@ -113,6 +128,21 @@ class core {
                 break;
             case self::YOLO3TINY:
                 $this->net = $this->darknetFFI->load_network(self::CFG_TINY_3, self::WEIGHT_TINY_3, 0);
+                break;
+            case self::YOLO2TINY;
+                $this->net = $this->darknetFFI->load_network(self::CFG_TINY_2, self::WEIGHT_TINY_2, 0);
+                break;
+            case self::YOLO_VOC_TINY;
+                $this->net = $this->darknetFFI->load_network(self::CFG_VOC_TINY_2, self::WEIGHT_VOC_TINY_2, 0);
+                break;
+            case self::MOBILE_NET_V2_LITE_YOLO;
+                $this->net = $this->darknetFFI->load_network(self::CFG_MOBILENET_V2_LITE, self::WEIGHT_MOBILENET_V2_LITE, 0);
+                break;
+            case self::YOLOFASTEST;
+                $this->net = $this->darknetFFI->load_network(self::CFG_FASTEST_YOLO, self::WEIGHT_FASTEST_YOLO, 0);
+                break;
+            case self::YOLOFASTEST_XL;
+                $this->net = $this->darknetFFI->load_network(self::CFG_FASTEST_YOLO_XL, self::WEIGHT_FASTEST_YOLO_XL, 0);
                 break;
             case self::YOLO3MAIN;
                 $this->net = $this->darknetFFI->load_network(self::CFG_MAIN, self::WEIGHT_MAIN, 0);
@@ -298,7 +328,7 @@ class core {
                     case 'boat':
                     case 'truck':
                     case 'bicycle':
-                    case 'motobike':
+                    case 'motorbike':
                     case 'aeroplane':
                         $this->truthLabel($box, $label, 'red', 'white');
                         break;
