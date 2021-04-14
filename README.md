@@ -21,7 +21,7 @@ Darknet is an open source neural network framework written in C and CUDA. It is 
 # yolo v2, v3, v4 #
 
 If running on cpu you may use FASTEST cfg & weight for real time object detection on MS COCO dataset.
-```<?php
+```php
 require '../vendor/autoload.php';
 
 use darknet\core;
@@ -36,21 +36,22 @@ System-Conf:-
 |-----------|-----------------|-----------|---------------|
 | Tiny-v2   | 0.85933095 (max)|   78      |     143.59    |
 |           | 0.62237596 (min)|           |               |
-|-----------|-----------------|-----------|---------------|
+|           |                 |           |               |
 | Tiny-v3   | 0.93895602 (max)|   90      |     125.9     |
 |           | 0.60306811 (min)|           |               |
-|-----------|-----------------|-----------|---------------|
-| Main-v3   | **15.4672219 (max)**|   98      |     964.5     |
+|           |                 |           |               |
+| Main-v3   | **15.4672219 (max)**|   98  |     964.5     |
 |           | 14.0677847 (min)|           |               |
-|-----------|-----------------|-----------|---------------|
+|           |                 |           |               |
 | Tiny-v4   | 0.85933095 (max)|   82      |     151.9     |
 |           | 0.62237596 (min)|           |               |
-|-----------|-----------------|-----------|---------------|
+|           |                 |           |               |
 | FASTEST   | 0.20039399 (max)|   20      |     97.47     |
-|           | **0.11836814 (min)**|           |               |
-|-----------|-----------------|-----------|---------------|
+|           | **0.11836814 (min)**|       |               |
+|           |                 |           |               |
 | FASTEST-xl| 0.80017591 (max)|   69      |     131.85    |
 |           | 0.22637511 (min)|           |               |
+
 Synopsis
 --------
 WARNING:  
@@ -60,7 +61,7 @@ The interface is not final and may change in the future.
 Sample:
 
 <p align="center">
-![php-darknet](php-darknet.gif)
+<img src="https://github.com/ghostjat/php-darknet/blob/main/php-darknet.gif" alt='demo'>
 <img src="https://raw.github.com/ghostjat/php-darknet/master/temp/out/gp.jpg" alt="gp"/>
  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/dog.jpg" alt ="dog"/>
   <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/eagle.jpg" alt ="egale"/>
@@ -70,7 +71,7 @@ Sample:
 
 Sample code:
 
-```<?php
+```php
 
 require '../vendor/autoload.php';
 
