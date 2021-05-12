@@ -2,7 +2,8 @@
 
 php-ffi experiment
 =========
-php7.4 interface to the lib-darknet for object detection.
+php interface to the lib-darknet for object detection.
+Php7.4+ is required
 
 Install
 ---------
