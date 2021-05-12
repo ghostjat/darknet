@@ -22,6 +22,7 @@ Darknet is an open source neural network framework written in C and CUDA. It is 
 
 If running on cpu you may use FASTEST cfg & weight for real time object detection on MS COCO dataset.
 ```php
+
 require '../vendor/autoload.php';
 
 use darknet\core;
@@ -31,7 +32,7 @@ System-Conf:-
     CPU:- Intel(R) Core(TM) i3-2370M CPU @ 2.40GHz 64bit
     MEM:- 8GB
     Dataset:- MS-COCO Classes:- 80
-    
+   
 |  YOLO     |   Time (ms)     |   CPU     | Mem(mb)(max)  |
 |-----------|-----------------|-----------|---------------|
 | Tiny-v2   | 0.85933095 (max)|   78      |     143.59    |
@@ -63,9 +64,9 @@ Sample:
 <p align="center">
 <img src="https://github.com/ghostjat/php-darknet/blob/main/php-darknet.gif" alt='demo'>
 <img src="https://raw.github.com/ghostjat/php-darknet/master/temp/out/gp.jpg" alt="gp"/>
- <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/dog.jpg" alt ="dog"/>
-  <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/eagle.jpg" alt ="egale"/>
- <img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/giraffe.jpg" alt ="giraffe"/>
+<img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/dog.jpg" alt ="dog"/>
+<img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/eagle.jpg" alt ="egale"/>
+<img src ="https://raw.github.com/ghostjat/php-darknet/master/temp/out/giraffe.jpg" alt ="giraffe"/>
 <img src="https://raw.github.com/ghostjat/php-darknet/master/temp/out/person.jpg" alt="person"/>
 </p>
 
