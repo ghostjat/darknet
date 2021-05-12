@@ -1,5 +1,9 @@
-# php-darknet ![Darknet Logo](darknet.png)
-
+# php-darknet
+![Minimum PHP version: 7.4.0](https://img.shields.io/badge/php-7.4.0%2B-blue.svg)
+[![Packagist](https://img.shields.io/packagist/v/ghostjat/php-darknet.svg)](https://packagist.org/packages/ghostjat/darknet)
+[![Build Status](https://scrutinizer-ci.com/g/ghostjat/php-darknet/badges/build.png?b=main)](https://scrutinizer-ci.com/g/ghostjat/php-darknet/build-status/main)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/ghostjat/php-darknet/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
+![Darknet Logo](darknet.png)
 php-ffi experiment
 =========
 php interface to the lib-darknet for object detection.
