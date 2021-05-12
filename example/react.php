@@ -51,7 +51,7 @@ class reactApp implements MessageComponentInterface {
     }
     
     protected function yolo() {
-        return $this->objDetc = new core();
+        return $this->objDetc = new core(core::MOBILE_NET_V2_VOC,core::DATA_VOC);
     }
 
 }

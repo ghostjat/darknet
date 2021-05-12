@@ -1,0 +1,99 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamer</title>
+</head>
+<body>
+    <div class="controls">
+      <button id="button">Get camera</button>
+      <select id="select">
+        <option></option>
+      </select>
+    </div>
+    <p id="info"></p>
+    <video id = "video" autoplay playsinline></video>
+    <img id = "remotev" src=""/>
+    <script>
+        // get video dom element
+        const video = document.getElementById('video');
+        const button = document.getElementById('button');
+        const select = document.getElementById('select');
+        var currentStream;
+        
+        function stopMediaTracks(stream) {
+          stream.getTracks().forEach(track => {
+            track.stop();
+          });
+        }
+        
+        function gotDevices(mediaDevices) {
+          select.innerHTML = '';
+          select.appendChild(document.createElement('option'));
+          var count = 1;
+          mediaDevices.forEach(mediaDevice => {
+            if (mediaDevice.kind === 'videoinput') {
+              const option = document.createElement('option');
+              option.value = mediaDevice.deviceId;
+              const label = mediaDevice.label || `Camera ${count++}`;
+              const textNode = document.createTextNode(label);
+              option.appendChild(textNode);
+              select.appendChild(option);
+            }
+          });
+        }
+
+        button.addEventListener('click', event => {
+          if (typeof currentStream !== 'undefined') {
+            stopMediaTracks(currentStream);
+          }
+          const videoConstraints = {width: 416, height: 416, facingMode:  'environment',frameRate: 25};
+          if (select.value === '') {
+            videoConstraints.facingMode = 'environment';
+          } else {
+            videoConstraints.deviceId = { exact: select.value };
+          }
+          const constraints = {
+            video: videoConstraints,
+            audio: false
+          };
+          navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(stream) {
+              currentStream = stream;
+              video.srcObject = stream;
+              return navigator.mediaDevices.enumerateDevices();
+            })
+            .then(gotDevices)
+            .catch(error => {
+              console.error(error);
+            });
+        });
+        navigator.mediaDevices.enumerateDevices().then(gotDevices);
+        
+      
+        
+        // returns a frame encoded in base64
+        var getFrame = function(e){
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            var data = canvas.toDataURL('image/webp',0.1);
+            return data;
+        }
+        var WS_URL = 'ws://0.0.0.0:8080';
+        var FPS = 300;
+        var ws = new WebSocket(WS_URL);
+        ws.onopen = function(e){
+            console.log("Connected to ${WS_URL}");
+            setInterval(() => {
+                ws.send(getFrame());
+            }, 1500);
+        }
+        ws.onmessage=  function(e){
+          const Obj = JSON.parse(e.data);
+          console.log(`${JSON.stringify(e.data)}`);
+          //document.getElementById('remotev').src = Obj.msg;
+        }
+    </script>
+</body>
+</html>

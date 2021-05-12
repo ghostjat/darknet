@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+</head>
+
+<body>
+    <div>
+    </div>
+    <script>
+
+        var WS_URL = 'ws://0.0.0.0:8080';
+        var ws = new WebSocket(WS_URL);
+        ws.onopen = function (e) {
+            console.log('Connected to ${WS_URL}!');
+        };
+        ws.onmessage = function (e) {
+            // set the base64 string to the src tag of the image
+            const Obj = JSON.parse(e.data);
+
+            //console.log(Obj.msg);
+            //var ipCam = createCamElem(Obj.id);
+            var ipCam = document.getElementById(Obj.id);
+            if (!ipCam) {
+                ipCam = document.createElement('img');
+                ipCam.setAttribute("id", Obj.id);
+                ipCam.style.border = "1px solid";
+                ipCam.style.width = '416px';
+                ipCam.style.height = '416px';
+                document.body.appendChild(ipCam);
+            }
+            if (!Obj.msg.length == 5) {
+                ipCam.src = 'img/offline.webp'
+            }
+            else {
+                ipCam.src = Obj.msg;
+                //ipCam.srcObject = null;
+                //ipCam.src = Obj.msg;
+                //ipCam.controls = true;
+                //ipCam.play();
+
+            }
+            /*var reader =  new FileReader();
+				reader.readAsDataURL(e.data);
+				reader.onload = function(){
+					video.src = reader.result;
+					console.log(reader.result);
+				}*/
+            //video.src = e.data;
+            //document.querySelector('#console').innerHTML= e.data;
+            //console.log(e.data);
+        };
+
+        function createCamElem(id) {
+            var ImgElem = document.getElementById(id);
+            if (!ImgElem) {
+                ImgElem = document.createElement('img');
+                ImgElem.setAttribute("id", id);
+                ImgElem.style.border = "1px solid";
+                document.body.appendChild(ImgElem);
+            }
+
+            return ImgElem;
+        }
+
+        function setCamImg(elem, imgFrame) {
+            elem.src = imgFrame;
+        }
+    </script>
+</body>
+
+</html>

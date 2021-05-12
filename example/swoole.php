@@ -8,7 +8,7 @@ if (!extension_loaded('swoole')) {
 
 use darknet\core;
 
-$dn = new core();
+$dn = new core(core::YOLOFASTEST);
 
 $server = new Swoole\WebSocket\Server("0.0.0.0", 8080);
 
